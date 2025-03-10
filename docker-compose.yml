@@ -1,0 +1,83 @@
+version: '3.8'  # Upgraded to version 3.8 for healthcheck support
+
+services:
+
+  frontend:
+    build:
+      context: ./frontend
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    environment:
+      - NODE_ENV=development
+    working_dir: /app
+    command: ["npm", "start"]
+
+  backend:
+    build:
+      context: ./backend
+    ports:
+      - "5000:5000"
+    environment:
+      MYSQL_HOST: mysql
+      MYSQL_PORT: 3306
+      MYSQL_USER: root
+      MYSQL_PASSWORD: admin
+      MYSQL_DB: user_data
+    volumes:
+      - ./backend:/app
+    depends_on:
+      mysql:
+        condition: service_healthy  # Ensures MySQL is ready before starting the backend
+
+  mysql:
+    image: mysql:5.7
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: admin
+      MYSQL_DATABASE: user_data
+    volumes:
+      - mysql-data:/var/lib/mysql
+    healthcheck:   # Added healthcheck to ensure MySQL is ready before dependent services start
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  data_loader1:
+    build:
+      context: ./backend
+    command: ["python", "temp.py"]
+    depends_on:
+      mysql:
+        condition: service_healthy  # Ensures MySQL is ready before starting data loader
+    environment:
+      MYSQL_HOST: mysql
+      MYSQL_PORT: 3306
+      MYSQL_USER: root
+      MYSQL_PASSWORD: admin
+      MYSQL_DB: user_data
+    volumes:
+      - ./backend:/app
+
+  data_loader2:
+    build:
+      context: ./backend
+    command: ["python", "temp2.py"]
+    depends_on:
+      mysql:
+        condition: service_healthy  # Ensures MySQL is ready before starting data loader
+    environment:
+      MYSQL_HOST: mysql
+      MYSQL_PORT: 3306
+      MYSQL_USER: root
+      MYSQL_PASSWORD: admin
+      MYSQL_DB: user_data
+    volumes:
+      - ./backend:/app
+
+volumes:
+  mysql-data:

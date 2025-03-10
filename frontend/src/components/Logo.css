@@ -1,0 +1,16 @@
+/* Logo.css */
+
+.logo-container {
+    position: absolute;
+    top: 0;
+    margin-top: 40px;
+    left: 50%;
+    transform: translateX(-50%); /* Center the logo horizontally */
+    padding-top: 20px; /* Adjust the vertical position as needed */
+  }
+  
+  .logo {
+    width: 150px; /* Adjust the size of the logo */
+    height: auto;
+  }
+  

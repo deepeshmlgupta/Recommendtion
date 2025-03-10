@@ -1,0 +1,74 @@
+/* Song List Grid */
+.music-page .song-list {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr); /* 5 columns per row */
+  gap: 20px; /* Space between cards */
+  padding-top: 50px;
+  width: 100%; /* Ensure the grid spans the entire width of the container */
+  max-width: 100%; /* Ensure it doesn't exceed the container's width */
+  box-sizing: border-box; /* Account for padding */
+}
+
+/* Song Card */
+.music-page .song-item {
+  background: #181818;
+  border-radius: 12px;
+  padding: 15px;
+  text-align: center;
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column; /* Stack the content vertically */
+  align-items: center;
+  justify-content: space-between; /* Ensure even space distribution */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); /* Add some shadow for hover effect */
+}
+
+.music-page .song-item:hover {
+  transform: translateY(-5px); /* Add a hover effect to lift the card */
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4); /* Increase the shadow on hover */
+}
+
+/* Adjust the size of the image */
+.music-page .song-item img {
+  width: 100%;
+  max-height: 200px; /* Limit the height of the image */
+  object-fit: cover;
+  margin-bottom: 15px; /* Space between the image and text */
+}
+
+/* Adjust text size */
+.music-page .song-item h3 {
+  font-size: 16px;
+  margin: 10px 0 5px;
+  color: #ffffff;
+}
+
+.music-page .song-item p {
+  font-size: 12px;
+  color: #b3b3b3;
+}
+
+/* Media query for smaller screens */
+@media (max-width: 1024px) {
+  .music-page .song-list {
+    grid-template-columns: repeat(3, 1fr); /* 3 columns for screens smaller than 1024px */
+  }
+}
+
+@media (max-width: 768px) {
+  .music-page .song-list {
+    grid-template-columns: repeat(2, 1fr); /* 2 columns for screens smaller than 768px */
+  }
+}
+
+@media (max-width: 480px) {
+  .music-page .song-list {
+    grid-template-columns: 1fr; /* 1 column for screens smaller than 480px */
+  }
+}
+
+.music-page h1 {
+  margin-top: 20px; /* Adjust the value as needed */
+  padding-top: 20px; /* Optional: add some padding if needed */
+}

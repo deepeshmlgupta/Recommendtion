@@ -1,0 +1,92 @@
+.recommendation-container {
+    padding: 20px;
+    text-align: center;
+    background-color: #121212;
+    min-height: 100vh;
+}
+
+.page-title {
+    color: white;
+    font-size: 28px;
+    margin-bottom: 20px;
+}
+
+.movies-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+    justify-content: center;
+    padding: 0 50px;
+}
+
+.movie-card {
+    background-color: #1a1a1a;
+    border-radius: 10px;
+    padding: 10px;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(255, 255, 255, 0.2);
+    transition: transform 0.3s ease;
+    cursor: pointer;
+}
+
+.movie-card:hover {
+    transform: scale(1.05);
+}
+
+.movie-poster {
+    width: 100%;
+    height: 300px;
+    border-radius: 10px;
+    object-fit: cover;
+}
+
+.movie-title {
+    margin-top: 10px;
+    font-size: 18px;
+    color: white;
+}
+
+/* Ensure navbar is positioned correctly */
+.nav-container {
+    display: flex;
+    flex-direction: column;
+}
+
+/* Add top margin to push content down */
+.recommendation-container {
+    margin-top: 80px; /* Adjust this based on your navbar height */
+    padding: 20px;
+    text-align: center;
+}
+
+/* Grid layout for movies */
+.movies-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* 4 columns */
+    gap: 20px;
+    justify-content: center;
+    padding: 20px;
+}
+
+.movie-card {
+    background: #222;
+    color: white;
+    border-radius: 10px;
+    padding: 15px;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.movie-card:hover {
+    transform: scale(1.05);
+}
+
+.movie-poster {
+    width: 100%;
+    border-radius: 8px;
+}
+
+.movie-title {
+    margin-top: 10px;
+    font-size: 18px;
+}
