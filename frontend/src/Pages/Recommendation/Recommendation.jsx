@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
 import "./Recommendation.css";
 import Navbar from '../../components/Navbar/Navbar';
 
@@ -11,9 +12,28 @@ const Recommendation = () => {
   const [movies, setMovies] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [userEmail, setUserEmail] = useState(null);
 
-  // ✅ Fetch movie IDs from Flask API
+  
+
   useEffect(() => {
+    const auth = getAuth();
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        setUserEmail(user.email);
+        console.log("User Email:", user.email);
+      } else {
+        setError("User not logged in.");
+        setLoading(false);
+      }
+    });
+
+    return () => unsubscribe();
+  }, []);
+
+  useEffect(() => {
+    if (!userEmail) return;
+
     const fetchMovieIds = async () => {
       try {
         const response = await fetch(FLASK_API_URL, {
@@ -21,20 +41,28 @@ const Recommendation = () => {
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({ genres: ["Action", "Adventure"] }), // Ensure genres are sent
+          body: JSON.stringify({  
+            email: userEmail 
+          }),
         });
 
         if (!response.ok) {
-          throw new Error(`Flask API error: ${response.statusText}`);
+          const errorData = await response.json();
+          throw new Error(errorData.error || `Flask API error: ${response.statusText}`);
         }
 
         const data = await response.json();
-        console.log("Received Movie IDs:", data.movie_ids); // Debugging
+        console.log("Received Movie IDs:", data.movie_ids);
 
-        if (data.movie_ids && Array.isArray(data.movie_ids) && data.movie_ids.length > 0) {
+        if (!data.movie_ids || !Array.isArray(data.movie_ids)) {
+          throw new Error("Invalid movie IDs received from server");
+        }
+
+        if (data.movie_ids.length > 0) {
           fetchMovieDetails(data.movie_ids);
         } else {
-          throw new Error("No movie IDs received from Flask.");
+          setError("No recommendations found for your preferences");
+          setLoading(false);
         }
       } catch (err) {
         console.error("Error fetching movie IDs:", err);
@@ -44,9 +72,8 @@ const Recommendation = () => {
     };
 
     fetchMovieIds();
-  }, []);
+  }, [userEmail]);
 
-  // ✅ Fetch movie details from OMDb API using IMDb IDs
   const fetchMovieDetails = async (imdbIds) => {
     try {
       const moviePromises = imdbIds.map(async (imdbID) => {
@@ -55,7 +82,7 @@ const Recommendation = () => {
 
         if (data.Response === "False") {
           console.warn(`OMDb API Error for ${imdbID}: ${data.Error}`);
-          return null; // Skip if movie not found
+          return null;
         }
 
         return {
@@ -65,7 +92,7 @@ const Recommendation = () => {
         };
       });
 
-      const movieResults = (await Promise.all(moviePromises)).filter(Boolean); // Remove null values
+      const movieResults = (await Promise.all(moviePromises)).filter(Boolean);
       setMovies(movieResults);
     } catch (err) {
       console.error("Error fetching movie details:", err);
@@ -73,6 +100,35 @@ const Recommendation = () => {
     } finally {
       setLoading(false);
     }
+  };
+
+
+  const handleMovieClick = async (movieId) => {
+    if (!userEmail) {
+      console.error("User email not found!");
+      return;
+    }
+
+    try {
+      const response = await fetch("http://127.0.0.1:5000/save_click", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          email: userEmail,
+          movie_id: movieId
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to save click");
+      }
+
+      console.log(`✅ Click saved for ${movieId}`);
+    } catch (error) {
+      console.error("Error saving click:", error);
+    }
+
+    navigate(`/movie/${movieId}`);
   };
 
   return (
@@ -91,7 +147,7 @@ const Recommendation = () => {
               <div 
                 key={movie.id} 
                 className="movie-card"
-                onClick={() => navigate(`/movie/${movie.id}`)}
+                onClick={() => handleMovieClick(movie.id)}
               >
                 <img src={movie.poster} alt={movie.name} className="movie-poster" />
                 <h3 className="movie-title">{movie.name}</h3>

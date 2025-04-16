@@ -34,7 +34,6 @@ const HomePage = () => {
           {user ? "Sign Out" : "Sign In"}
         </button>
       </header>
-
       <section className="hero">
         <h1>Welcome to Entertainment Hub</h1>
         <p>Your one-stop destination for Movies & Music</p>

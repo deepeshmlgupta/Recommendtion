@@ -50,12 +50,17 @@ const Navbar = () => {
                 <p>Children</p>
                 <img src={bell_icon} alt="" className='icons'/>
                 <div className="navbar-profile">
-                    <img src={profile_img} alt="" className='profile'/>
-                    <img src={caret_icon} alt="" />
+                    {/* Clickable profile area (navigates to /profile) */}
+                    <div className="profile-clickable" onClick={() => navigate('/profile')}>
+                        <img src={profile_img} alt="Profile" className='profile'/>
+                        <img src={caret_icon} alt="Menu" />
+                    </div>
+                    
+                    {/* Dropdown with Sign Out button */}
                     <div className="dropdown">
                         <button onClick={handleSignOut}>Sign Out</button>
                     </div>
-                </div>   
+                </div>
             </div>
         </div>
     );

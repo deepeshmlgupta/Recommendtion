@@ -4,8 +4,8 @@ import Header from "./Header";
 import GenrePopup from "./GenrePopup";
 import "./Music.css";
 
-const CLIENT_ID = "3cfe32744c834b7e9d56637c142e009c";
-const CLIENT_SECRET = "b556d723a4d548b18690a26a62550cbf";
+const CLIENT_ID = "324fe40a70b3418280bd69a732fa6b4c";
+const CLIENT_SECRET = "e631f9e57dac4c2d9f5d2a15925a7af4";
 
 const Music = () => {
   const [songs, setSongs] = useState([]);

@@ -4,10 +4,26 @@ import "./MusicRecommendation.css";
 import Navbar from "../../components/Navbar/Navbar";
 
 const playlists = [
-  { id: "trending", title: "Trending", cover: "https://i.scdn.co/image/ab67706c0000da846a1f3d0e5c5c1b7a3f3b3b4d" },
-  { id: "top", title: "Top Hits", cover: "https://i.scdn.co/image/ab67706c0000da849d6163a29a8c3cdd7e3a5b1c" },
-  { id: "new", title: "New Releases", cover: "https://i.scdn.co/image/ab67706c0000da84a9b765e2f3f0b3c6f6b6a7b2" },
-  { id: "mixes", title: "Your Mixes", cover: "https://i.scdn.co/image/ab67706c0000da84b2b3b3a7d9c6c2c1f3f3b3b4" }
+  { 
+    id: "37i9dQZF1DXcBWIGoYBM5M", // Today's Top Hits
+    title: "Top Hits", 
+    cover: "https://i.scdn.co/image/ab67706f00000002ca5a7517156021292e5663a6" 
+  },
+  { 
+    id: "37i9dQZEVXbLRQDuF5jeBp", // RapCaviar
+    title: "Trending Rap", 
+    cover: "https://i.scdn.co/image/ab67706f00000002a980b15599fed6e65f8ae6f9"
+  },
+  { 
+    id: "37i9dQZF1DX4JAvHpjipBk", // New Music Friday
+    title: "New Releases", 
+    cover: "https://i.scdn.co/image/ab67706f00000002a980b15599fed6e65f8ae6f9" 
+  },
+  { 
+    id: "37i9dQZF1EQncLwOalG3K7", // Mix of the Week
+    title: "Your Mix", 
+    cover: "https://i.scdn.co/image/ab67706f00000002a980b15599fed6e65f8ae6f9" 
+  }
 ];
 
 const MusicRecommendation = () => {

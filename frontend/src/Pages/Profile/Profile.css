@@ -1,0 +1,106 @@
+.user-profile {
+    padding: 20px;
+    max-width: 800px;
+    margin: 0 auto;
+    font-family: 'Arial', sans-serif;
+    color: #ffffff;
+  }
+  
+  .profile-section {
+    background: #1e1e1e;
+    padding: 20px;
+    border-radius: 12px;
+    margin-top: 20px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+  }
+  
+  .preferences {
+    margin: 20px 0;
+    padding: 50px;
+    padding-left: 20px;
+    padding-top: 0;
+    border-radius: 8px;
+    background: #2b2b2b;
+  }
+  
+  .profile-section h2{
+    color: #d44b0b; 
+    border-bottom: 2px solid #ffcc00;
+    padding-bottom: 5px; 
+    display: inline-block;
+  }
+  .preferences h3 {
+    font-size: 30px;
+    margin-top: auto;
+    margin-bottom: 10px;
+    color: goldenrod;
+  }
+  
+  /* Fixing the dot issue and aligning genres properly */
+  .current-preferences ul {
+    list-style: none;  /* Removes the bullet points */
+    padding-left: 0;  /* Aligns the list properly */
+  }
+  
+  .current-preferences li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px;
+    margin-bottom: 8px;
+    border-bottom: 1px solid #444;
+    border-radius: 6px;
+    background: #292929;
+    transition: background 0.3s ease, transform 0.2s ease;
+    padding-left: 10px; /* Shift text slightly inside for better alignment */
+  }
+  
+  .current-preferences li:hover {
+    background: #333;
+    transform: translateX(5px);
+  }
+  
+  .add-preference {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+    align-items: center;
+  }
+  
+  select {
+    padding: 10px;
+    border-radius: 6px;
+    border: 1px solid #444;
+    background: #222;
+    color: #ffffff;
+    cursor: pointer;
+  }
+  
+  button {
+    padding: 10px 15px;
+    border-radius: 6px;
+    background: #007bff;
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
+    transition: all 0.3s ease;
+  }
+  
+  button:hover {
+    background: #0056b3;
+  }
+  
+  button:disabled {
+    background: #555;
+    cursor: not-allowed;
+  }
+  
+  /* Responsive Styles */
+  @media (max-width: 600px) {
+    .add-preference {
+      flex-direction: column;
+      gap: 5px;
+    }
+  }
+  

@@ -31,35 +31,59 @@ const Movies = () => {
     navigate(`/movie/${movieId}`);
   };
 
+  // Handler for explicitly closing the popup without saving
+  const handleClosePopup = () => {
+    // Hide the popup
+    setShowPopup(false);
+    // Set the flag in localStorage so it doesn't show again
+    localStorage.setItem('hasSeenPopup', 'true');
+  }
+
   return (
     <div className="Movies">
       <Navbar />
+
+      {/* --- Conditionally Render Popup --- */}
+      {/* This will now render if showPopup becomes true */}
       {showPopup && (
         <GenrePopup
-          onClose={() => setShowPopup(false)}
-          onSave={handleSavePreferences}
+          onClose={handleClosePopup} // Use the closing handler
+          onSave={handleSavePreferences} // Use the saving handler
         />
       )}
+
+      {/* Hero Section */}
       <div className="hero">
         <img src={hero_banner} alt="Hero Banner" className="banner-img" />
         <div className="hero-caption">
-          {/* <img src={hero_title} alt="" className='hero-title' /> */}
-          {/* <p>Hello Ji Kesa Ho sare aur kitna ban gaya project aur baki kesa chal rha h project m aur jiven m sab thik</p> */}
-          {/* <div className="hero-btns">
-            <button className="btn"><img src={play_icon} alt="" />Recommend</button>
-            <button className="btn dark-btn"><img src={info_icon} alt="" />Home Page</button>
-          </div> */}
-          <TitleCards
-            onCardClick={handleMovieClick}  // Pass the handleMovieClick function to TitleCards
-          />
+          {/* Hero content can go here */}
         </div>
       </div>
-      <div>
-        <TitleCards title="Popular Movies" category="popular" onCardClick={handleMovieClick} />
-        <TitleCards title="Blockbuster Movies" category="top_rated" onCardClick={handleMovieClick} />
-        <TitleCards title="Top Picks For You" category="now_playing" onCardClick={handleMovieClick} />
-        <TitleCards title="Upcoming Movies" category="upcoming" onCardClick={handleMovieClick} />
+
+      {/* Movie Lists Section */}
+      <div className="movie-lists">
+        <TitleCards
+           title="Now Playing"
+           category="now_playing"
+           onCardClick={handleMovieClick}
+        />
+        <TitleCards
+           title="Trending Now"
+           category="trending/movie/week"
+           onCardClick={handleMovieClick}
+        />
+         <TitleCards
+           title="Upcoming"
+           category="upcoming"
+           onCardClick={handleMovieClick}
+        />
+        <TitleCards
+           title="Top Rated"
+           category="top_rated"
+           onCardClick={handleMovieClick}
+        />
       </div>
+
       <Footer />
     </div>
   );

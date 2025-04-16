@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import "./MovieDetails.css";
 
-const API_KEY = 'de1daa740b9235540eafe28812be129f';
+const API_KEY = 'e8a14bdc910bee581cfbeae7041fc4d1';
 const BASE_URL = 'https://api.themoviedb.org/3';
 
 // MovieDetails component to fetch and display movie details from API

@@ -1,35 +1,69 @@
+/* css */
 .title-cards {
-    margin-top: 50px;
-    margin-bottom: 30px;
-  }
-  
-  .title-cards h2 {
-    margin-bottom: 8px;
-  }
-  
-  .card-list {
-    display: flex;
-    gap: 12px;  /* Adjusted gap for better spacing */
-    overflow-x: scroll;
-  }
-  
-  .card-list::-webkit-scrollbar {
-    display: none;
-  }
-  
-  .card-list img {
-    width: 180px;  /* Reduced the width of the card images */
-    border-radius: 4px;
-    cursor: pointer;
-  }
-  
-  .card-list .card {
-    position: relative;
-  }
-  
-  .card-list .card p {
-    position: absolute;
-    bottom: 10px;
-    right: 10px;
-  }
-  
+  margin-top: 50px;
+  margin-bottom: 30px;
+}
+
+.title-cards h2 {
+  margin-bottom: 8px;
+}
+
+.card-list {
+  display: flex;
+  gap: 16px;
+  overflow-x: scroll;
+  padding-bottom: 10px;
+}
+
+/* Hide scrollbar */
+.card-list::-webkit-scrollbar {
+  display: none;
+}
+.card-list {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+
+
+/* --- Styles for the individual card container --- */
+.card-list .card {
+  /* --- FIX: Define width and prevent shrinking --- */
+  width: 230px;        /* Explicitly set the width */
+  flex-shrink: 0;      /* Prevent the card from shrinking */
+  /* --- End Fix --- */
+
+  display: flex;
+  flex-direction: column;
+  /* align-items: center; /* Keep this to center the text below */
+  background-color: #222; /* Optional background */
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+/* Styles for the card image */
+.card-list .card img {
+  width: 180px;         /* Match card width */
+  height: 270px;        /* Maintain fixed height */
+  object-fit: cover;
+  /* border-radius: 4px 4px 0 0; /* Adjust if using card background */
+  border-radius: 4px; /* Keep simple radius if no card background */
+  cursor: pointer;
+  display: block;
+}
+
+/* Styles for the movie title paragraph */
+.card-list .card p {
+  margin-top: 8px;
+  margin-bottom: 8px;
+  text-align: center;
+  width: 100%; /* Allow slightly more width now card is fixed */
+  padding: 0 5px; /* Keep padding */
+  color: #ffffff;
+  font-size: 0.9em;
+  line-height: 1.2;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  /* Ensure text is centered within the card width */
+  align-self: center; /* Explicitly center paragraph within the column flex */
+}

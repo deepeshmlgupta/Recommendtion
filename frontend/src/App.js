@@ -11,6 +11,7 @@ import MovieDetails from './Pages/Recommendation/MovieDetails';
 import MusicDetails from './Pages/Recommendation/MusicDetails';
 import PlaylistDetails from './Pages/Recommendation/PlaylistDetails';
 import TitleCards from '../src/components/TitleCards/TitleCards';
+import UserProfile from './Pages/Profile/Profile';
 import { onAuthStateChanged } from 'firebase/auth';
 import { auth } from './firebase';
 
@@ -58,6 +59,7 @@ function AppWithNavigate() {
       <Route path="/movie/:id" element={<MovieDetails />} />  {/* Dynamic route for movie details */}
       <Route path="/music/:id" element={<MusicDetails />} />
       <Route path="/playlist/:id" element={<PlaylistDetails />} />
+      <Route path="/profile" element={<UserProfile />} />
     </Routes>
   );
 }

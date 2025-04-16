@@ -26,7 +26,7 @@ if "year" not in df.columns:
 
 # ✅ Convert 'year' column to INT (if not already)
 df["year"] = pd.to_numeric(df["year"], errors="coerce").fillna(0).astype(int)
-cursor.execute("ALTER TABLE genre_movies ADD COLUMN year INT")
+# cursor.execute("ALTER TABLE genre_movies ADD COLUMN year INT")
 db.commit()
 # ✅ Update Year Data in MySQL Table
 for _, row in df.iterrows():

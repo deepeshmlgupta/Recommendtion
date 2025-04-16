@@ -46,7 +46,7 @@ const GenrePopup = ({ userEmail, onClose, onSave }) => {
       setIsLoading(true); // Start loading
       const idToken = await user.getIdToken(); // ✅ Get Firebase ID Token
 
-      const response = await fetch("/save_preferences", {
+      const response = await fetch("${process.env.REACT_APP_API_BASE_URL}/save_preferences", {
         method: "POST",
         headers: { 
           "Content-Type": "application/json",

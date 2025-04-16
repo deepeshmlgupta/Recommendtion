@@ -4,7 +4,8 @@ import './GenrePopup.css';
 const GenrePopup = ({ onClose, onSave }) => {
   const [selectedGenres, setSelectedGenres] = useState([]);
   const [isSaving, setIsSaving] = useState(false);
-  const genres = ['Pop', 'Rock', 'Jazz', 'Hip-Hop', 'Classical', 'Electronic'];
+  const genres = ['Pop', 'Rock', 'Hip-Hop', 'Jazz', 'Classical', 'Electronic', 'Country', 'Reggae',
+  'Blues', 'Metal', 'Folk', 'Punk', 'Soul', 'Funk', 'R&B', 'Gospel'];
 
   // ✅ Fetch token from localStorage when the component mounts
   useEffect(() => {
