@@ -1,48 +1,88 @@
-import React from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import "./MusicRecommendation.css";
 import Navbar from "../../components/Navbar/Navbar";
-
-const playlists = [
-  { 
-    id: "37i9dQZF1DXcBWIGoYBM5M", // Today's Top Hits
-    title: "Top Hits", 
-    cover: "https://i.scdn.co/image/ab67706f00000002ca5a7517156021292e5663a6" 
-  },
-  { 
-    id: "37i9dQZEVXbLRQDuF5jeBp", // RapCaviar
-    title: "Trending Rap", 
-    cover: "https://i.scdn.co/image/ab67706f00000002a980b15599fed6e65f8ae6f9"
-  },
-  { 
-    id: "37i9dQZF1DX4JAvHpjipBk", // New Music Friday
-    title: "New Releases", 
-    cover: "https://i.scdn.co/image/ab67706f00000002a980b15599fed6e65f8ae6f9" 
-  },
-  { 
-    id: "37i9dQZF1EQncLwOalG3K7", // Mix of the Week
-    title: "Your Mix", 
-    cover: "https://i.scdn.co/image/ab67706f00000002a980b15599fed6e65f8ae6f9" 
-  }
-];
+import { getAccessToken, searchTracksByGenre } from "../Recommendation/Spotify";
 
 const MusicRecommendation = () => {
   const navigate = useNavigate();
+  const { genre } = useParams();
+  const [tracks, setTracks] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const fetchTracksByGenre = async () => {
+      try {
+        setLoading(true);
+        // Get Spotify access token
+        const token = await getAccessToken();
+        
+        // Fetch tracks by genre
+        const genreTracks = await searchTracksByGenre(genre || 'pop', token);
+        setTracks(genreTracks);
+      } catch (err) {
+        setError(err.message);
+        console.error("Error fetching tracks:", err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchTracksByGenre();
+  }, [genre]);
+
+  if (loading) {
+    return (
+      <div className="music-container">
+        <Navbar />
+        <div className="music-content">
+          <h2 className="page-title">Loading {genre} tracks...</h2>
+          <div className="loading-spinner"></div>
+        </div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="music-container">
+        <Navbar />
+        <div className="music-content">
+          <h2 className="page-title">Error</h2>
+          <p>{error}</p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="music-container">
       <Navbar />
       <div className="music-content">
-        <h2 className="page-title">Music Recommendations</h2>
-        <div className="playlist-grid">
-          {playlists.map((playlist) => (
-            <div 
-              key={playlist.id} 
-              className="playlist-card"
-              onClick={() => navigate(`/playlist/${playlist.id}`)}
-            >
-              <img src={playlist.cover} alt={playlist.title} className="playlist-cover" />
-              <h3 className="playlist-title">{playlist.title}</h3>
+        <h2 className="page-title">{genre ? `${genre} Tracks` : "Popular Tracks"}</h2>
+        
+        <div className="tracks-list">
+          {tracks.map((track) => (
+            <div key={track.id} className="track-card">
+              <img 
+                src={track.album.images[0]?.url} 
+                alt={track.name} 
+                className="track-cover" 
+              />
+              <div className="track-info">
+                <h3 className="track-name">{track.name}</h3>
+                <p className="track-artist">
+                  {track.artists.map(artist => artist.name).join(', ')}
+                </p>
+                <p className="track-album">{track.album.name}</p>
+              </div>
+              <button 
+                className="play-button"
+                onClick={() => window.open(track.external_urls.spotify, '_blank')}
+              >
+                Play on Spotify
+              </button>
             </div>
           ))}
         </div>

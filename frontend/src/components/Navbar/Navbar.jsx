@@ -38,17 +38,7 @@ const Navbar = () => {
                 </ul>
             </div>
             <div className="navbar-right">
-                <form onSubmit={handleSearch} className="search-bar">
-                    <input 
-                        type="text" 
-                        placeholder="Search..." 
-                        value={searchQuery}
-                        onChange={(e) => setSearchQuery(e.target.value)}
-                    />
-                    <button type="submit">Search</button>
-                </form>
-                <p>Children</p>
-                <img src={bell_icon} alt="" className='icons'/>
+            
                 <div className="navbar-profile">
                     {/* Clickable profile area (navigates to /profile) */}
                     <div className="profile-clickable" onClick={() => navigate('/profile')}>

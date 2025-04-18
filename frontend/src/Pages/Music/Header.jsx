@@ -36,21 +36,9 @@ const Header = () => {
               <ul> 
                   <li onClick={() => navigate("/")}>Home</li>
                   <li onClick={() => navigate("/MusicRecommendation")}>Recommendation</li>
-                  {/* <li>Recommendation</li> */}
               </ul>
           </div>
           <div className="Header-right">
-              <form onSubmit={handleSearch} className="search-bar">
-                  <input 
-                      type="text" 
-                      placeholder="Search..." 
-                      value={searchQuery}
-                      onChange={(e) => setSearchQuery(e.target.value)}
-                  />
-                  <button type="submit">Search</button>
-              </form>
-              <p>Children</p>
-              <img src={bell_icon} alt="" className='icons'/>
               <div className="Header-profile">
                   <img src={profile_img} alt="" className='profile'/>
                   <img src={caret_icon} alt="" />

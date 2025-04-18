@@ -1,5 +1,5 @@
 .hero{
-  position: relative;
+  position: relatives;
 }
 .banner-img{
   width: 100%;
@@ -30,7 +30,7 @@
 .hero-btns .btn img{
   width: 25%;
 }
-.hero-btns .btn{
+.hero-btns .btn {
   border: 0;
   outline: 0;
   padding: 8px 20px;
@@ -40,19 +40,80 @@
   font-size: 15px;
   font-weight: 600;
   background: white;
+  color: #333; /* Ensure text color is visible by default */
+  border-radius: 4px;
+  cursor: pointer;
+  opacity: 1; /* Make sure the opacity is 1 for default visibility */
+}
+
+.hero-btns .btn.dark-btn {
+  color: #fff; /* White text for dark buttons */
+  background: #6d6d6eb3;
+}
+.popup-content {
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  width: 300px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+  text-align: center;
+}
+
+.genre-options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 20px;
+  justify-content: center;
+}
+
+.genre-btn {
+  background: #f0f0f0; /* Light background */
+  color: #333; /* Dark text color by default */
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 8px 16px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background 0.3s ease, color 0.3s ease;
+  display: inline-block;
+  width: auto;
+}
+
+.genre-btn.selected {
+  background: #6d6d6e; /* Highlight selected button */
+  color: white;
+}
+
+.genre-btn:hover {
+  background: #e0e0e0; /* Lighter background on hover */
+}
+
+.genre-btn:disabled {
+  background: #d3d3d3; /* Disabled background */
+  color: #aaa; /* Disabled text color */
+  cursor: not-allowed; /* Change cursor to indicate disabled state */
+}
+
+.save-btn,
+.cancel-btn {
+  background: #4CAF50;
+  color: white;
+  padding: 10px 20px;
+  border: none;
   border-radius: 4px;
   cursor: pointer;
 }
-.hero-btns .btn.dark-btn{
-  color: #fff;
-  background: #6d6d6eb3;
+
+.save-btn:disabled,
+.cancel-btn:disabled {
+  background: #bbb;
+  cursor: not-allowed;
 }
-.hero-btns .btn:hover{
-  background: #ffffffbf;
-}
-.hero-btns .btn.dark-btn:hover{
-  background: #6d6d6e66;
-}
+
 .more-cards{
   padding-left: 6%;
 }

@@ -46,7 +46,7 @@ const GenrePopup = ({ userEmail, onClose, onSave }) => {
       setIsLoading(true); // Start loading
       const idToken = await user.getIdToken(); // ✅ Get Firebase ID Token
 
-      const response = await fetch("${process.env.REACT_APP_API_BASE_URL}/save_preferences", {
+      const response = await fetch("/save_preferences", {
         method: "POST",
         headers: { 
           "Content-Type": "application/json",
@@ -57,14 +57,14 @@ const GenrePopup = ({ userEmail, onClose, onSave }) => {
 
       const data = await response.json();
       if (response.ok) {
-        console.log("✅ Preferences saved:", data);
+        console.log(" Preferences saved:", data);
         alert("Preferences saved successfully!");
       } else {
-        console.error("❌ Server error:", data.error);
+        console.error(" Server error:", data.error);
         alert(`Error: ${data.error}`);
       }
     } catch (error) {
-      console.error("🚨 Fetch error:", error);
+      console.error(" Fetch error:", error);
       alert("Network error. Please try again.");
     } finally {
       setIsLoading(false); // Stop loading
